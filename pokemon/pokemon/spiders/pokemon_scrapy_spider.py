@@ -15,19 +15,19 @@ class PokemonScrapySpider(scrapy.Spider):
         rows = table.xpath('tbody/tr/td[1]/text()').extract()
 
         for row in range(1, len(rows)):
-            index = table.xpath('tbody/tr[' + str(row) + ']/td[1]/text()').extract()
+            index = table.xpath('tbody/tr[' + str(row) + ']/td[1]/text()').extract()[0].strip()
 
             base_name = table.xpath('tbody/tr[' + str(row) + ']/td[2]/a/text()').extract()
             info = table.xpath('tbody/tr[' + str(row) + ']/td[2]/small/text()').extract()
             name = base_name[0] + ' (' + info[0] + ')' if (len(info) > 0) else base_name[0]
 
-            stats_t = table.xpath('tbody/tr[' + str(row) + ']/td[4]/text()').extract()      # Total
-            stats_h = table.xpath('tbody/tr[' + str(row) + ']/td[5]/text()').extract()      # HP
-            stats_a = table.xpath('tbody/tr[' + str(row) + ']/td[6]/text()').extract()      # Attack
-            stats_b = table.xpath('tbody/tr[' + str(row) + ']/td[7]/text()').extract()      # Defense
-            stats_c = table.xpath('tbody/tr[' + str(row) + ']/td[8]/text()').extract()      # Sp. Atk
-            stats_d = table.xpath('tbody/tr[' + str(row) + ']/td[9]/text()').extract()      # Sp. Def
-            stats_s = table.xpath('tbody/tr[' + str(row) + ']/td[10]/text()').extract()     # Speed
+            stats_t = table.xpath('tbody/tr[' + str(row) + ']/td[4]/text()').extract()[0]   # Total
+            stats_h = table.xpath('tbody/tr[' + str(row) + ']/td[5]/text()').extract()[0]   # HP
+            stats_a = table.xpath('tbody/tr[' + str(row) + ']/td[6]/text()').extract()[0]   # Attack
+            stats_b = table.xpath('tbody/tr[' + str(row) + ']/td[7]/text()').extract()[0]   # Defense
+            stats_c = table.xpath('tbody/tr[' + str(row) + ']/td[8]/text()').extract()[0]   # Sp. Atk
+            stats_d = table.xpath('tbody/tr[' + str(row) + ']/td[9]/text()').extract()[0]   # Sp. Def
+            stats_s = table.xpath('tbody/tr[' + str(row) + ']/td[10]/text()').extract()[0]  # Speed
 
             yield PokemonItem(
                 index=index,
